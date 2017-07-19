@@ -1,8 +1,24 @@
 let config = {
-    menu: [
-        'source', 'fontName', 'fontSize', 'bold', 'underline', 'strikeThrough',
-        'color', 'alignLeft', 'alignCenter', 'alignRight', 'listOl', 'listUl', 'link',
-        'picture', 'table', 'removeFormat', 'redo', 'undo', 'fullscreen'
+    viewMenu: [
+        'source',
+        'fontName',
+        'fontSize',
+        'bold',
+        'underLine',
+        'strikeThrough',
+        'color',
+        'alignLeft',
+        'alignCenter',
+        'alignRight',
+        'listOl',
+        'listUl',
+        'link',
+        'picture',
+        'table',
+        'removeFormat',
+        'redo',
+        'undo',
+        'fullscreen'
     ],
     fontName: [
         'arial black', 'times new roman', 'Courier New'
@@ -17,7 +33,7 @@ let config = {
     }
 }
 export default {
-    getConfig(name) {
+    getConfig(name = '') {
         return config[name] ? config['name'] : config
     },
     setConfig(data) {

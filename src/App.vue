@@ -1,22 +1,28 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <hello></hello>
+    <Layout></Layout>
   </div>
 </template>
 
 <script>
-import Hello from './components/Hello'
+import Layout from './components/layout'
 
 export default {
   name: 'app',
+  methods: {
+    gg() {
+      this.$store.dispatch('showDropList',{name:"color", display: true})
+    }
+  },
   components: {
-    Hello
+    Layout
   }
 }
 </script>
 
 <style>
+@import '../static/font-awesome-4.7.0/css/font-awesome.min.css';
+
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -25,4 +31,12 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
+.syl-editor-menubar {
+    min-height: 30px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
 </style>

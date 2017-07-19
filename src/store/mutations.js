@@ -1,35 +1,35 @@
 import {
-    RECORD_ADDRESS,
-    ADD_CART,
-    REDUCE_CART,
-    INIT_BUYCART,
-    CLEAR_CART,
-    RECORD_SHOPDETAIL,
-    RECORD_USERINFO,
-    GET_USERINFO,
-    CONFIRM_REMARK,
-    CONFIRM_INVOICE,
-    CHOOSE_SEARCH_ADDRESS,
-    SAVE_GEOHASH,
-    CONFIRM_ADDRESS,
-    CHOOSE_ADDRESS,
-    NEED_VALIDATION,
-    SAVE_CART_ID_SIG,
-    SAVE_ORDER_PARAM,
-    CHANGE_ORDER_PARAM,
-    ORDER_SUCCESS,
-    SAVE_SHOPID,
-    SAVE_ORDER,
-    OUT_LOGIN,
-    RETSET_NAME,
-    SAVE_AVANDER,
-    SAVE_ADDRESS,
-    SAVE_ADDDETAIL,
-    SAVE_QUESTION,
-    ADD_ADDRESS,
-    BUY_CART,
+    SHOW_DROP_LIST,
+    UPDATE_CONTENT,
+    UPDATE_SELECTED_VALUE,
+    UPDATE_MENU_STATUS,
+    EXEC_COMMAND,
+    SET_FULLSCREEN,
+    CALL_METHOD
 } from './mutations-types'
 
 export default {
-
+    [SHOW_DROP_LIST]({ menuBar }, data) {
+        for (let menu in menuBar) {
+            if (menuBar[menu].dropList !== undefined) {
+                if (data.name === menu) {
+                    menuBar[menu].showDropList = data.display
+                } else {
+                    menuBar[menu].showDropList = false
+                }
+            }
+        }
+    },
+    [UPDATE_CONTENT](state, data) {
+        state.content = data
+    },
+    [UPDATE_MENU_STATUS]({ menuBar }, data) {
+        menuBar[data.name].status = data.status
+    },
+    [UPDATE_SELECTED_VALUE]({ menuBar }, data) {
+        menuBar[data.name].value = data.value
+    },
+    [EXEC_COMMAND](state, data) {
+        state.command = data
+    }
 }
