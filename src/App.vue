@@ -32,7 +32,7 @@ export default {
   margin-top: 60px;
 }
 .syl-editor-menubar {
-    min-height: 30px;
+    min-height: 40px;
     display: flex;
     align-items: center;
     flex-wrap: wrap;

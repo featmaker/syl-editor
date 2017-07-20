@@ -8,6 +8,9 @@ export default {
     updateSelectValue({ commit }, data) {
         commit('UPDATE_SELECTED_VALUE', data)
     },
+    updateMenuStatus({ commit }, data) {
+        commit('UPDATE_MENU_STATUS', data)
+    },
     execCommand({ commit }, data) {
         commit('EXEC_COMMAND', data)
     },

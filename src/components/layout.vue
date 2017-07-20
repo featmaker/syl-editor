@@ -10,6 +10,7 @@ import Menubar from './menu/menubar'
 import Editarea from './content/editarea'
 import Color from './menu/color'
 
+
 export default {
   name: 'layout',
   data () {
@@ -49,5 +50,6 @@ a {
     width: 1000px;
     height: 500px;
     margin: 0 auto;
+    border: 1px solid #eee;
 }
 </style>

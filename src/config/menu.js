@@ -2,7 +2,8 @@ let menu = {
     source: {
         className: 'syl-menu-source',
         icon: 'fa fa-code',
-        action: 'viewSource'
+        action: 'viewSource',
+        call: 'viewSource'
     },
     fontName: {
         className: 'syl-menu-fontName',
@@ -31,23 +32,26 @@ let menu = {
     },
     color: {
         className: 'syl-menu-color',
-        icon: 'fa fa-underline',
+        icon: 'fa fa-paint-brush',
         dropList: true
     },
     alignLeft: {
         className: 'syl-menu-align-left',
         icon: 'fa fa-align-left',
-        action: 'alignLeft'
+        action: 'alignLeft',
+        call: true
     },
     alignCenter: {
         className: 'syl-menu-align-center',
         icon: 'fa fa-align-center',
-        action: 'alignCenter'
+        action: 'alignCenter',
+        call: true
     },
     alignRight: {
         className: 'syl-menu-align-center',
         icon: 'fa fa-align-right',
-        action: 'alignRight'
+        action: 'alignRight',
+        call: true
     },
     listOl: {
         className: 'syl-menu-ol',

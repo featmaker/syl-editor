@@ -19,9 +19,19 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
   .syl-editor-editarea {
-    min-height: 469px;
+    height: 458px;
+    min-height: 458px;
     border-top: 1px solid #eee;
+    text-align: left;
+    padding: 10px 15px;
+    .edit-area {
+      height: 100%;
+      outline: none;
+      &:active {
+        outline: none;
+      }
+    }
   }
 </style>
