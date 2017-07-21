@@ -14,7 +14,6 @@
           </span>
           </a>
         </div>
-
   </div>
 </template>
 
@@ -22,7 +21,6 @@
 import Config from '../../config/index'
 import Menu from '../../config/menu'
 import lang from '../../config/lang'
-import fontName from './fontName'
 
 export default {
   data() {
@@ -32,7 +30,6 @@ export default {
       viewMenu,
       menus,
       lang,
-      fontName: 'fontNamedddd'
     }
   },
   computed: {
@@ -46,16 +43,17 @@ export default {
         return this.dropList[menu]
     },
     handleEvent($event, menu) {
-        if(this.stated[menu].status == 'disable') { return}
-        this.showDropList(menu)
+        if(this.stated[menu].status == 'disable') { return }
+        this.showDropList($event, menu)
         this.updateMenu(menu)
     },
-    showDropList(menu) {
+    showDropList($event, menu) {
         if(this.menus[menu].dropList) {
             this.$store.dispatch('showDropList', {
                 name: menu,
                 display: !this.$store.state.menuBar[menu].showDropList
             })
+            this.$store.dispatch('getNodePosition', $event.currentTarget.getBoundingClientRect())
         }
     },
     updateMenu(menu) {

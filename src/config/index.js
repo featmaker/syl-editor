@@ -24,7 +24,7 @@ let config = {
         'arial black', 'times new roman', 'Courier New'
     ],
     fontSize: [
-        '12px', '14px', '16px', '18px', '20px', '24px', '28px', '32px', '36px'
+        'h1', 'h2', 'h3', 'h4', 'h5', 'h6'
     ],
     container: {
         height: 300,
@@ -33,8 +33,8 @@ let config = {
     }
 }
 export default {
-    getConfig(name = '') {
-        return config[name] ? config['name'] : config
+    getConfig(name) {
+        return config[name] ? config[name] : config
     },
     setConfig(data) {
         if (data) {

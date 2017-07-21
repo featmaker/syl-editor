@@ -17,6 +17,9 @@ export default {
     setFullScreen({ commit }, data) {
         commit('SET_FULLSCREEN', data)
     },
+    getNodePosition({ commit }, data) {
+        commit('NODE_POSITION', data)
+    },
     callMethod({ commit }, data) {
         commit('CALL_METHOD', data)
     }

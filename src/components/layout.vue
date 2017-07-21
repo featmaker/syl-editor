@@ -1,33 +1,44 @@
 <template>
   <div class="hello syl-editor">
-    <Menubar></Menubar>
-    <Editarea></Editarea>
+    <syl-menubar></syl-menubar>
+    <syl-editarea></syl-editarea>
+    <div class="drop-list">
+        <div v-for="item in list" :key="item">
+          <component :is="'syl-' + item"></component>
+        </div>
+    </div>
   </div>
+
 </template>
 
 <script>
 import Menubar from './menu/menubar'
 import Editarea from './content/editarea'
 import Color from './menu/color'
+import FontName from './menu/fontName'
+import FontSize from './menu/fontSize'
 
 
 export default {
   name: 'layout',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      msg: 'Welcome to Your Vue.js App',
+      list: ['fontname','color', 'fontsize']
     }
   },
   components: {
-    Menubar,
-    Editarea,
-    Color
+    'syl-fontname': FontName,
+    'syl-menubar': Menubar,
+    'syl-editarea': Editarea,
+    'syl-color': Color,
+    'syl-fontsize': FontSize
   }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style lang="scss">
 h1, h2 {
   font-weight: normal;
 }
@@ -35,11 +46,12 @@ h1, h2 {
 ul {
   list-style-type: none;
   padding: 0;
+  margin: 0;
 }
 
 li {
-  display: inline-block;
-  margin: 0 10px;
+  // display: inline-block;
+  margin: 0;
 }
 
 a {
@@ -47,9 +59,31 @@ a {
 }
 
 .syl-editor {
+    // position: relative;
     width: 1000px;
     height: 500px;
     margin: 0 auto;
     border: 1px solid #eee;
+}
+
+.drop-list-item {
+  // display: inline-block;
+  position: absolute;
+  border: 1px solid #eee;
+  background: #fff;
+  li {
+    border-bottom: 1px solid #eee;
+    a {
+        display: inline-block;
+        text-decoration: none;
+        color: #666;
+    }
+    &:last-child {
+      border: none;
+    }
+  }
+  &:before {
+    content: ' '
+  }
 }
 </style>

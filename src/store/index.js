@@ -30,6 +30,12 @@ export default new Vuex.Store({
             name: '',
             value: ''
         },
+        position: {
+            top: 0,
+            right: 0,
+            bottom: 0,
+            left: 0,
+        },
         calee: {
             name: '',
             params: ''

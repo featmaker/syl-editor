@@ -9,6 +9,9 @@ import Layout from './components/layout'
 
 export default {
   name: 'app',
+  data() {
+    return {}
+  },
   methods: {
     gg() {
       this.$store.dispatch('showDropList',{name:"color", display: true})
