@@ -36,9 +36,9 @@ export default {
       stated: function() {
         return this.$store.state.menuBar.fontName
       },
-      show: function() {
-        return this.stated.showDropList
-      },
+      // show: function() {
+      //   return this.stated.showDropList
+      // },
       style: function() {
         let position = this.$store.state.position
         return {

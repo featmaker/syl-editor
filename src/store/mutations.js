@@ -12,8 +12,8 @@ import {
 export default {
     [SHOW_DROP_LIST]({ menuBar }, data) {
         for (let menu in menuBar) {
-            if (menuBar[menu].dropList !== 'undefined') {
-                if (data && data[name] === menu) {
+            if (menuBar[menu].showDropList !== undefined) {
+                if (data && data.name === menu) {
                     menuBar[menu].showDropList = data.display
                 } else {
                     menuBar[menu].showDropList = false
@@ -49,7 +49,6 @@ export default {
         state.callee = data
     },
     [NODE_POSITION](state, data) {
-        console.log(data)
         state.position = {
             top: data.top,
             right: data.right,

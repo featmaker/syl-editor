@@ -17,6 +17,8 @@ import Editarea from './content/editarea'
 import Color from './menu/color'
 import FontName from './menu/fontName'
 import FontSize from './menu/fontSize'
+import Picture from './menu/picture'
+import Table from './menu/table'
 
 
 export default {
@@ -24,7 +26,7 @@ export default {
   data () {
     return {
       msg: 'Welcome to Your Vue.js App',
-      list: ['fontname','color', 'fontsize']
+      list: ['fontname','color', 'fontsize', 'picture','table']
     }
   },
   components: {
@@ -32,7 +34,9 @@ export default {
     'syl-menubar': Menubar,
     'syl-editarea': Editarea,
     'syl-color': Color,
-    'syl-fontsize': FontSize
+    'syl-fontsize': FontSize,
+    'syl-picture': Picture,
+    'syl-table': Table
   }
 }
 </script>
@@ -58,6 +62,26 @@ a {
   color: #42b983;
 }
 
+table {
+    width: 100%;
+    margin: 5px 0 10px 0;
+    tr {
+        border-top: 1px solid #ddd;
+        &:last-child {
+            border-bottom: 1px solid #ddd;
+        }
+        td {
+            min-width: 50px;
+            padding: 5px;
+            border-left: 1px solid #ddd;
+            &:last-child {
+                border-right: 1px solid #ddd;
+            }
+        }
+    }
+}
+
+
 .syl-editor {
     // position: relative;
     width: 1000px;
@@ -68,6 +92,7 @@ a {
 
 .drop-list-item {
   // display: inline-block;
+  max-width: 200px;
   position: absolute;
   border: 1px solid #eee;
   background: #fff;

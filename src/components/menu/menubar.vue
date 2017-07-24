@@ -39,7 +39,6 @@ export default {
   },
   methods: {
     getDropList(menu) {
-        console.log(this.dropList[menu])
         return this.dropList[menu]
     },
     handleEvent($event, menu) {

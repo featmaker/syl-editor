@@ -36,9 +36,9 @@ export default {
         stated: function() {
             return this.$store.state.menuBar.fontSize
         },
-        show: function() {
-            return this.stated.showDropList
-        },
+        // show: function() {
+        //     return this.stated.showDropList
+        // },
         style: function() {
             let position = this.$store.state.position
             return {
@@ -48,9 +48,23 @@ export default {
         }
     },
     methods: {
-        handleSelect($event, size) {
-            console.log(size)
-        }
+      handleSelect($event, size) {
+        this.$store.dispatch('updateSelectValue', {
+          name: 'fontSize',
+          value: size
+        })
+        this.$store.dispatch('execCommand', {
+          name: 'fontSize',
+          value: size
+        })
+        this.$store.dispatch('showDropList');
+      }
+    },
+    mounted() {
+      this.$store.dispatch('updateSelectValue', {
+        name: 'fontSize',
+        value: this.value || this.fontSize[2]
+      })
     }
 }
 </script>
@@ -61,6 +75,9 @@ export default {
         a {
             width: auto;
             padding: 12px 20px;
+        }
+        &:hover {
+            background: #eee;
         }
     }
     .font-size-h1 {
