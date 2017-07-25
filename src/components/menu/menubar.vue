@@ -56,10 +56,7 @@ export default {
         }
     },
     updateMenu(menu) {
-        let state = {
-            name: menu,
-            status: 'default'
-        };
+        let state = {};
         if(this.menus[menu].action) {
             if(this.menus[menu].call) {
                 this.$store.dispatch('callMethod',{
@@ -67,9 +64,12 @@ export default {
                     params: null
                 })
             } else {
-                this.$store.dispatch('execCommand', this.menus[menu].action)
+                this.$store.dispatch('execCommand', {
+                    name: this.menus[menu].action,
+                    value: null
+                })
                 if(this.stated[menu].status) {
-                    state.status = this.stated[menu].status == 'active' ? 'default' : 'active'
+                    state[menu] = this.stated[menu].status == 'active' ? 'default' : 'active'
                 }
             }
         }

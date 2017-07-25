@@ -50,7 +50,7 @@
         methods: {
             handleSelect($event, color) {
                 this.$store.dispatch('execCommand', {
-                    name: this.mode == 0 ? 'foreGroundColor' : 'backGroundColor',
+                    name: this.mode == 0 ? 'foreColor' : 'backColor',
                     value: color
                 })
                 this.$store.dispatch('showDropList');
@@ -60,7 +60,7 @@
                 let valid = this.checkValid(color)
                 if(valid) {
                     this.$store.dispatch('execCommand', {
-                        name: this.mode == 0 ? 'foreGroundColor' : 'backGroundColor',
+                        name: this.mode == 0 ? 'foreColor' : 'backColor',
                         value: color
                     })
                     this.$store.dispatch('showDropList');

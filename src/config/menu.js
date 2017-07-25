@@ -3,7 +3,7 @@ let menu = {
         className: 'syl-menu-source',
         icon: 'fa fa-code',
         action: 'viewSource',
-        call: 'viewSource'
+        call: 'html'
     },
     fontName: {
         className: 'syl-menu-fontName',
@@ -38,20 +38,17 @@ let menu = {
     alignLeft: {
         className: 'syl-menu-align-left',
         icon: 'fa fa-align-left',
-        action: 'alignLeft',
-        call: true
+        action: 'justifyLeft'
     },
     alignCenter: {
         className: 'syl-menu-align-center',
         icon: 'fa fa-align-center',
-        action: 'alignCenter',
-        call: true
+        action: 'justifyCenter'
     },
     alignRight: {
         className: 'syl-menu-align-center',
         icon: 'fa fa-align-right',
-        action: 'alignRight',
-        call: true
+        action: 'justifyRight'
     },
     listOl: {
         className: 'syl-menu-ol',
@@ -63,7 +60,12 @@ let menu = {
     },
     link: {
         className: 'syl-menu-link',
-        icon: 'fa fa-link'
+        icon: 'fa fa-link',
+        dropList: true
+    },
+    unlink: {
+        className: 'syl-menu-unlink',
+        icon: 'fa fa-unlink'
     },
     picture: {
         className: 'syl-menu-picture',
@@ -89,12 +91,12 @@ let menu = {
         className: 'syl-menu-undo',
         icon: 'fa fa-undo',
         action: 'undo'
-    },
-    fullscreen: {
-        className: 'syl-menu-fullscreen',
-        icon: 'fa fa-arrows-alt',
-        action: 'fullscree'
     }
+    // fullscreen: {
+    //     className: 'syl-menu-fullscreen',
+    //     icon: 'fa fa-arrows-alt',
+    //     action: 'fullscree'
+    // }
 }
 export default {
     getMenu() {

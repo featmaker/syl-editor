@@ -1,7 +1,7 @@
 <template>
   <div class="syl-editor-editarea">
     <div class="edit-area" id="edit-body" contenteditable="true">
-      {{ content }}
+      <p v-html="content"></p>
     </div>
   </div>
 </template>
@@ -11,7 +11,6 @@ import { mapState } from 'vuex'
 export default {
     data() {
       return {
-        winDoc: '',
         editBody: ''
       }
     },
@@ -23,7 +22,11 @@ export default {
     }),
     watch: {
       'content': function(val) {
-        this.updateContent(val)
+        if(!val) {
+          this.updateContent('<p><br><p>')
+        } else {
+          this.updateContent(val)
+        }
       },
       'command': function(cmd) {
         this.exec(cmd.name, cmd.value)
@@ -34,30 +37,72 @@ export default {
     },
     methods: {
       init() {
-        this.winDoc = window.document
-        this.editBody = winDoc.getElementById('edit-body')
+        this.editBody = document.getElementById('edit-body')
+        this.addListener()
+        this.initEdit
+      },
+      addListener() {
+        let that = this
+        this.editBody.addEventListener('keydown', function(event){
+          if(event.keyCode == '8') {
+            if(that.checkBodyEmpty()) {
+              event.preventDefault()
+            }
+          }
+        })
+        document.addEventListener('selectionchange', function() {
+          clearTimeout(timer)
+          let timer = setTimeout(function () {
+            that.updateMenuState()
+          },100)
+        })
+      },
+      updateMenuState() {
+          let data = {}
+          for(let menu in this.menus) {
+            if(['redo', 'undo'].indexOf(menu) == -1) {
+              if(document.queryCommandSupported(menu)) {
+                data[menu] = document.queryCommandState(menu) ? 'active' : 'default'
+              } else {
+                data[menu] = 'default'
+              }
+            }
+          }
+          this.$store.dispatch('updateMenuStatus', data)
+      },
+      checkBodyEmpty() {
+        let children = this.editBody.children
+        if(children.length <= 1 && !children[0].textContent.length ) {
+          return true
+        }
+        return false
       },
       exec(name, value) {
-        if (this.winDoc.queryCommandSupported('styleWithCSS')) {
-          this.windDoc.execCommand('styleWithCSS', false, false)
+        if (document.queryCommandSupported('styleWithCSS')) {
+          document.execCommand('styleWithCSS', false, false)
         }
         if(this.editBody) {
-          this.winDoc.execCommand(name, false, value)
+          let range = this.getRange()
+          console.log(range)
+          if(range) {
+            console.log(name)
+            document.execCommand(name, false, value ? value : false)
+          }
         }
       },
       getRange() {
-        let range = this.winDoc.getSelection()
+        let range = document.getSelection()
         if(range && range.rangeCount !== 0) {
           return range.getRangeAt(0)
         }
       },
       setRange(range) {
-        let newRange = this.winDoc.getSelection()
+        let newRange = document.getSelection()
         newRange.removeAllRanges()
         newRange.addRange(range)
       },
       removeRange() {
-        let range = this.winDoc.getSelection()
+        let range = document.getSelection()
         range.removeAllRanges()
       },
       rangeValid() {
@@ -68,17 +113,15 @@ export default {
         return false
       },
       insertHTML(val){
-          let selection = this.winDoc.getSelection()
+          let selection = document.getSelection()
           let range = this.getRange()
-
-      },
-      updateMenuState() {
-
       },
       rangeChange() {
 
       },
-
+    },
+    mounted() {
+      this.init()
     }
 }
 </script>

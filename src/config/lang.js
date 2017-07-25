@@ -38,6 +38,9 @@ export default {
     link: {
         title: '链接'
     },
+    unlink: {
+        title: '取消链接'
+    },
     picture: {
         title: '图片'
     },
@@ -52,8 +55,5 @@ export default {
     },
     undo: {
         title: '撤销'
-    },
-    fullscreen: {
-        title: '全屏'
     }
 }

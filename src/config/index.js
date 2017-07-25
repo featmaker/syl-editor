@@ -13,12 +13,12 @@ let config = {
         'listOl',
         'listUl',
         'link',
+        'unlink',
         'picture',
         'table',
         'removeFormat',
         'redo',
-        'undo',
-        'fullscreen'
+        'undo'
     ],
     fontName: [
         'arial black', 'times new roman', 'Courier New'
@@ -39,7 +39,7 @@ let config = {
     container: {
         height: 300,
         width: 500,
-        content: '欢迎使用实验楼编辑器'
+        content: '<br>'
     }
 }
 export default {

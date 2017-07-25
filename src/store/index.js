@@ -23,7 +23,7 @@ viewMenu.forEach(function(name) {
 
 export default new Vuex.Store({
     state: {
-        content: '欢迎使用实验楼编辑器',
+        content: config.container.content,
         menuBar,
         fullScreen: false,
         command: {

@@ -25,19 +25,9 @@ export default {
         state.content = data
     },
     [UPDATE_MENU_STATUS]({ menuBar }, data) {
-        if (data.name == 'all') {
-            for (name in menuBar) {
-                menuBar[name].status = data.status
-            }
-            return
+        for (name in data) {
+            menuBar[name].status = data[name]
         }
-        if (data.name == 'group') {
-            for (let item in data.group) {
-                menuBar[item.name] = item.status
-            }
-            return
-        }
-        menuBar[data.name].status = data.status
     },
     [UPDATE_SELECTED_VALUE]({ menuBar }, data) {
         menuBar[data.name].value = data.value

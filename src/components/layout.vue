@@ -19,6 +19,7 @@ import FontName from './menu/fontName'
 import FontSize from './menu/fontSize'
 import Picture from './menu/picture'
 import Table from './menu/table'
+import Link from './menu/link'
 
 
 export default {
@@ -26,7 +27,7 @@ export default {
   data () {
     return {
       msg: 'Welcome to Your Vue.js App',
-      list: ['fontname','color', 'fontsize', 'picture','table']
+      list: ['fontname','color', 'fontsize', 'picture','table', 'link']
     }
   },
   components: {
@@ -36,7 +37,8 @@ export default {
     'syl-color': Color,
     'syl-fontsize': FontSize,
     'syl-picture': Picture,
-    'syl-table': Table
+    'syl-table': Table,
+    'syl-link': Link
   }
 }
 </script>
