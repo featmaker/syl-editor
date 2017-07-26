@@ -17,17 +17,17 @@ export default {
         return {
             text: '',
             link: '',
-            range: ''
+            range: '',
         }
     },
     watch: {
       'showDropList': function(val) {
         if(val) {
-          this.getRange()
-          if(this.range) {
-            let str = this.range.commonAncestorContainer.data
-            console.log(str)
-            this.text = (str && str.trim())
+          this.range = this.getRange()
+          let text = this.getRangeText(this.range)
+          console.log(this.range)
+          if(text) {
+            this.text = text
           }
         } else {
           this.text = ''
@@ -45,19 +45,46 @@ export default {
                 left: position.left + 'px'
             }
         }
-
     },
     methods: {
         handleLink() {
-
+          if(this.text) {
+            this.$store.dispatch('execCommand', false, {
+              name: 'createLink',
+              value: this.link
+            })
+          } else {
+            this.createLink()
+          }
+          this.text = ''
+          this.link = ''
+          this.$store.dispatch('showDropList')
+        },
+        createLink() {
+          if(this.text && this.link) {
+            let a = `<a href="${this.link}" >${this.text}</a>`
+            this.$store.dispatch('execCommand', false, {
+              name: 'insertHTML',
+              value: a
+            })
+          }
         },
         getRange() {
           let select = document.getSelection()
-          let range = ''
           if(select && select.rangeCount != 0) {
-            range = select.getRangeAt(0)
+            return select.getRangeAt(0)
           }
-          this.range = range
+        },
+        getRangeText(range) {
+            if(this.rangeValid(range)) {
+              return range.toString()
+            }
+        },
+        rangeValid(range) {
+          let testRange = range || this.range
+          if(testRange) {
+            return testRange.collapsed
+          }
         }
     }
 }

@@ -1,6 +1,6 @@
 <template>
   <div class="syl-editor-editarea">
-    <div class="edit-area" id="edit-body" contenteditable="true">
+    <div class="edit-area" id="syl-editor-body" contenteditable="true">
       <p v-html="content"></p>
     </div>
   </div>
@@ -11,39 +11,43 @@ import { mapState } from 'vuex'
 export default {
     data() {
       return {
-        editBody: ''
+        editorBody: '',
+        editorMenuBar: '',
+        currentRange: null,
+        rangeFocus: false
       }
     },
     computed: mapState({
       menus: 'menuBar',
       content: 'content',
-      command: 'command',
-      calee: 'calee'
+      command: 'command'
     }),
     watch: {
       'content': function(val) {
-        if(!val) {
-          this.updateContent('<p><br><p>')
-        } else {
-          this.updateContent(val)
+        if(this.editorBody.innerHTML == val) {
+          this.editorBody.innerHTML = val
+          this.updateMenuState()
         }
       },
       'command': function(cmd) {
         this.exec(cmd.name, cmd.value)
       },
-      'calee': function(data) {
-        this.callMethod(data.name, data.pararms)
-      }
+      // 'rangeFocus': function(val) {
+      //   if(!val) {
+      //     this.$store.dispatch('showDropList')
+      //   }
+      // }
     },
     methods: {
       init() {
-        this.editBody = document.getElementById('edit-body')
+        this.editorBody = document.getElementById('syl-editor-body')
+        this.editorMenuBar = document.getElementById('syl-editor-menubar')
+        this.editorBody.focus()
         this.addListener()
-        this.initEdit
       },
       addListener() {
         let that = this
-        this.editBody.addEventListener('keydown', function(event){
+        this.editorBody.addEventListener('keydown', function(event){
           if(event.keyCode == '8') {
             if(that.checkBodyEmpty()) {
               event.preventDefault()
@@ -55,6 +59,7 @@ export default {
           let timer = setTimeout(function () {
             that.updateMenuState()
           },100)
+          that.setRange()
         })
       },
       updateMenuState() {
@@ -71,7 +76,7 @@ export default {
           this.$store.dispatch('updateMenuStatus', data)
       },
       checkBodyEmpty() {
-        let children = this.editBody.children
+        let children = this.editorBody.children
         if(children.length <= 1 && !children[0].textContent.length ) {
           return true
         }
@@ -81,43 +86,59 @@ export default {
         if (document.queryCommandSupported('styleWithCSS')) {
           document.execCommand('styleWithCSS', false, false)
         }
-        if(this.editBody) {
-          let range = this.getRange()
-          console.log(range)
-          if(range) {
-            console.log(name)
-            document.execCommand(name, false, value ? value : false)
-          }
+        if(!this.rangeFocus) {
+          this.restoreRange()
         }
-      },
-      getRange() {
-        let range = document.getSelection()
-        if(range && range.rangeCount !== 0) {
-          return range.getRangeAt(0)
+        if(this.currentRange) {
+          if(this[name]) {
+            this[name](value)
+            return
+          }
+          console.log(name)
+          console.log(value)
+          document.execCommand(name, false, value)
         }
       },
       setRange(range) {
-        let newRange = document.getSelection()
-        newRange.removeAllRanges()
-        newRange.addRange(range)
+       if(range) {
+         this.currentRange = range
+         return
+       }
+       let selection = document.getSelection()
+       if(selection.rangeCount == 0) {
+         return
+       }
+       let _range = selection.getRangeAt(0)
+       let ancestor = _range.commonAncestorContainer
+       let parNode = ancestor.nodeType === 1 ? ancestor : ancestor.parentNode
+       if(!parNode) return
+       if(this.isContain(this.editorBody, ancestor)) {
+         this.currentRange = _range
+         this.rangeFocus = true
+       } else {
+         this.rangeFocus = false
+       }
       },
-      removeRange() {
-        let range = document.getSelection()
-        range.removeAllRanges()
+      isContain(parNode, child) {
+          let parentNode = child.parentNode
+          while(parentNode) {
+            if(parNode === parentNode) {
+              return true
+            }
+            parentNode = parentNode.parentNode
+          }
+          return false
       },
-      rangeValid() {
-        let range = this.getRange()
-        if (range && !range.collapsed) {
-          return true
+      restoreRange() {
+        if(!this.currentRange) return
+        let selection = document.getSelection()
+        if(selection) {
+          selection.removeAllRanges()
+          selection.addRange(this.currentRange)
         }
-        return false
       },
       insertHTML(val){
-          let selection = document.getSelection()
-          let range = this.getRange()
-      },
-      rangeChange() {
-
+            console.log(val)
       },
     },
     mounted() {

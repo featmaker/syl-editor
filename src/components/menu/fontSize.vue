@@ -69,7 +69,12 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+    ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+    }
     .font-size {
         padding: 0;
         a {

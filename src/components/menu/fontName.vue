@@ -70,6 +70,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
   .font-name {
     padding: 5px;
     &:hover {

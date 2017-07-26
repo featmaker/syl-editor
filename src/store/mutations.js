@@ -26,7 +26,11 @@ export default {
     },
     [UPDATE_MENU_STATUS]({ menuBar }, data) {
         for (name in data) {
-            menuBar[name].status = data[name]
+            if (menuBar[name].showStatus) {
+                menuBar[name].status = data[name]
+            } else {
+                menuBar[name].status = 'default'
+            }
         }
     },
     [UPDATE_SELECTED_VALUE]({ menuBar }, data) {

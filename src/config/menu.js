@@ -18,45 +18,50 @@ let menu = {
     bold: {
         className: 'syl-menu-bold',
         icon: 'fa fa-bold',
-        action: 'bold'
+        action: 'bold',
+        showStatus: true
     },
     underLine: {
         className: 'syl-menu-underline',
         icon: 'fa fa-underline',
-        action: 'underline'
+        action: 'underline',
+        showStatus: true
     },
     strikeThrough: {
         className: 'syl-menu-strike',
         icon: 'fa fa-strikethrough',
-        action: 'strikeThrough'
+        action: 'strikeThrough',
+        showStatus: true
     },
     color: {
         className: 'syl-menu-color',
         icon: 'fa fa-paint-brush',
         dropList: true
     },
-    alignLeft: {
+    justifyLeft: {
         className: 'syl-menu-align-left',
         icon: 'fa fa-align-left',
-        action: 'justifyLeft'
+        action: 'justifyLeft',
     },
-    alignCenter: {
+    justifyCenter: {
         className: 'syl-menu-align-center',
         icon: 'fa fa-align-center',
-        action: 'justifyCenter'
+        action: 'justifyCenter',
     },
-    alignRight: {
+    justifyRight: {
         className: 'syl-menu-align-center',
         icon: 'fa fa-align-right',
-        action: 'justifyRight'
+        action: 'justifyRight',
     },
-    listOl: {
+    insertOrderedList: {
         className: 'syl-menu-ol',
-        icon: 'fa fa-list-ol'
+        icon: 'fa fa-list-ol',
+        action: 'insertOrderedList'
     },
-    listUl: {
+    insertUnorderedList: {
         className: 'syl-menu-ul',
-        icon: 'fa fa-list-ul'
+        icon: 'fa fa-list-ul',
+        action: 'insertUnorderedList'
     },
     link: {
         className: 'syl-menu-link',
@@ -92,11 +97,6 @@ let menu = {
         icon: 'fa fa-undo',
         action: 'undo'
     }
-    // fullscreen: {
-    //     className: 'syl-menu-fullscreen',
-    //     icon: 'fa fa-arrows-alt',
-    //     action: 'fullscree'
-    // }
 }
 export default {
     getMenu() {

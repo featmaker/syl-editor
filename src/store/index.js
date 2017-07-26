@@ -17,6 +17,9 @@ viewMenu.forEach(function(name) {
         menuBar[name].value = ''
         menuBar[name].showDropList = false
     } else {
+        if (menu[name].showStatus) {
+            menuBar[name].showStatus = true
+        }
         menuBar[name].status = 'default'
     }
 })

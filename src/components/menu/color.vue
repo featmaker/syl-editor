@@ -2,7 +2,7 @@
   <div class="drop-list-item colors-list" v-show="stated.showDropList" :style="style">
       <div class="color-list-container">
           <div class="select-mode">
-            前景色:<input type="radio" name="radio" id="fore-color" v-model="mode" value="0" />
+            前景色:<input type="radio" name="radio" id="fore-color" v-model="mode" value="0" checked="true" />
             背景色:<input type="radio" name="radio" id="back-color" v-model="mode" value="1" />
           </div>
           <div class="customize-color-value">
@@ -10,13 +10,13 @@
               <button @click="handleInput">确定</button>
           </div>
             <div class="color-dashboard">
-                <span class="color-item"
+                <a href="javascript:;" class="color-item"
                  v-for="color in colors"
                  :key="color"
                  :style="{backgroundColor: color}"
                   @click.stop="handleSelect($event, color)"
                  >
-                </span>
+                </a>
             </div>
       </div>
   </div>

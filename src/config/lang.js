@@ -20,19 +20,19 @@ export default {
     color: {
         title: '颜色'
     },
-    alignLeft: {
+    justifyLeft: {
         title: '左对齐'
     },
-    alignCenter: {
+    justifyCenter: {
         title: '居中'
     },
-    alignRight: {
+    justifyRight: {
         title: '右对齐'
     },
-    listOl: {
+    insertOrderedList: {
         title: '有序列表'
     },
-    listUl: {
+    insertUnorderedList: {
         title: '无序列表'
     },
     link: {

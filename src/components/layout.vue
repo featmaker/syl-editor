@@ -49,11 +49,11 @@ h1, h2 {
   font-weight: normal;
 }
 
-ul {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-}
+// ul {
+//   list-style-type: none;
+//   padding: 0;
+//   margin: 0;
+// }
 
 li {
   // display: inline-block;
@@ -68,16 +68,18 @@ table {
     width: 100%;
     margin: 5px 0 10px 0;
     tr {
-        border-top: 1px solid #ddd;
-        &:last-child {
-            border-bottom: 1px solid #ddd;
-        }
         td {
             min-width: 50px;
             padding: 5px;
             border-left: 1px solid #ddd;
+            border-top: 1px solid #ddd;
             &:last-child {
                 border-right: 1px solid #ddd;
+            }
+        }
+        &:last-child {
+            td {
+                border-bottom: 1px solid #ddd;
             }
         }
     }

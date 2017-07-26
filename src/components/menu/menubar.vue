@@ -1,5 +1,5 @@
 <template>
-  <div class="syl-editor-menubar">
+  <div class="syl-editor-menubar" id="syl-editor-menubar">
       <div v-for=" menu in viewMenu" :key="menu" class="menubar-item">
           <a href="javascript:;"
             :class="[ stated[menu].status , menus[menu].className ]"
