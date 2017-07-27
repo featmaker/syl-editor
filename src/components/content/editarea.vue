@@ -42,8 +42,9 @@ export default {
       init() {
         this.editorBody = document.getElementById('syl-editor-body')
         this.editorMenuBar = document.getElementById('syl-editor-menubar')
-        this.editorBody.focus()
         this.addListener()
+        this.initEditBody()
+        this.editorBody.focus()
       },
       addListener() {
         let that = this
@@ -51,6 +52,7 @@ export default {
           if(event.keyCode == '8') {
             if(that.checkBodyEmpty()) {
               event.preventDefault()
+              that.initEditBody()
             }
           }
         })
@@ -61,6 +63,14 @@ export default {
           },100)
           that.setRange()
         })
+      },
+      initEditBody() {
+        if(this.checkBodyEmpty()) {
+          let firstChild = this.editorBody.firstChild
+          if(firstChild.nodeName !== 'P') {
+            this.editorBody.innerHTML = '<p><br></p>'
+          }
+        }
       },
       updateMenuState() {
           let data = {}
@@ -77,10 +87,12 @@ export default {
       },
       checkBodyEmpty() {
         let children = this.editorBody.children
-        if(children.length <= 1 && !children[0].textContent.length ) {
-          return true
+        if(children.length <= 1) {
+          let child = children[0]
+          if(!children[0].textContent) {
+            return true
+          }
         }
-        return false
       },
       exec(name, value) {
         if (document.queryCommandSupported('styleWithCSS')) {
@@ -92,19 +104,21 @@ export default {
         if(this.currentRange) {
           if(this[name]) {
             this[name](value)
+            // this.restoreRange()
             return
           }
-          console.log(name)
-          console.log(value)
           document.execCommand(name, false, value)
+          this.restoreRange()
         }
       },
       setRange(range) {
-       if(range) {
+       let selection = document.getSelection()
+       if(range && selection) {
+         selection.removeAllRanges()
          this.currentRange = range
+         selection.addRange(range)
          return
        }
-       let selection = document.getSelection()
        if(selection.rangeCount == 0) {
          return
        }
@@ -138,8 +152,49 @@ export default {
         }
       },
       insertHTML(val){
-            console.log(val)
+        let selection = document.getSelection()
+        if(!this.currentRange) return
+        let frag = document.createDocumentFragment()
+        let obj = document.createElement('div')
+        let node = null
+        obj.innerHTML = val
+        if(obj.firstChild) {
+          node = obj.firstChild
+          frag.appendChild(node)
+        }
+        this.currentRange.insertNode(frag)
+        this.currentRange.setStartAfter(node)
+        // this.restoreRange()
       },
+      getRange() {
+        let selection = document.getSelection()
+        if (selection) {
+          if(selection.rangeCount !== 0) {
+            return selection.getRangeAt(0)
+          }
+        }
+      },
+      unlink() {
+        let range = this.getRange()
+        let ancestor = range.commonAncestorContainer
+        if(ancestor.nodeType == 3) {
+          ancestor = ancestor.parentNode
+        }
+        // return
+        if(ancestor.tagName == 'A') {
+          let selection = document.getSelection()
+          let newRange = document.createRange()
+          newRange.selectNode(ancestor)
+          // return
+          this.setRange(newRange)
+          this.exec('UnLink', null)
+          newRange.collapse(false)
+          selection.removeRange(newRange)
+          this.restoreRange()
+        } else {
+          this.exec('UnLink', null)
+        }
+      }
     },
     mounted() {
       this.init()

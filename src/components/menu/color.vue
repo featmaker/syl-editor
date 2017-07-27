@@ -28,7 +28,6 @@
     export default {
         data() {
             let colors = Config.getConfig('colors')
-            console.log(colors)
             return {
                 mode: 0,
                 colors,

@@ -54,7 +54,7 @@ export default {
           value: size
         })
         this.$store.dispatch('execCommand', {
-          name: 'fontSize',
+          name: 'formatblock',
           value: size
         })
         this.$store.dispatch('showDropList');

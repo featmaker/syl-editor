@@ -70,7 +70,8 @@ let menu = {
     },
     unlink: {
         className: 'syl-menu-unlink',
-        icon: 'fa fa-unlink'
+        icon: 'fa fa-unlink',
+        action: 'unlink'
     },
     picture: {
         className: 'syl-menu-picture',

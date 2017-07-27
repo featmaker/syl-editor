@@ -62,6 +62,7 @@ li {
 
 a {
   color: #42b983;
+  cursor: pointer;
 }
 
 table {
@@ -83,6 +84,11 @@ table {
             }
         }
     }
+}
+
+img {
+    width: 100%;
+    height: auto;
 }
 
 

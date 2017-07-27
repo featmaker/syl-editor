@@ -17,20 +17,18 @@ export default {
         return {
             text: '',
             link: '',
-            range: '',
+            range: ''
         }
     },
     watch: {
       'showDropList': function(val) {
         if(val) {
           this.range = this.getRange()
-          let text = this.getRangeText(this.range)
-          console.log(this.range)
+          let text = this.getRangeText()
+          console.log(text)
           if(text) {
             this.text = text
           }
-        } else {
-          this.text = ''
         }
       }
     },
@@ -44,14 +42,18 @@ export default {
                 top: position.bottom + 'px',
                 left: position.left + 'px'
             }
+        },
+        editorBody: function() {
+          return document.getElementById('syl-editor-body')
         }
     },
     methods: {
         handleLink() {
-          if(this.text) {
-            this.$store.dispatch('execCommand', false, {
+          let that = this
+          if(this.getRangeText()) {
+            this.$store.dispatch('execCommand', {
               name: 'createLink',
-              value: this.link
+              value: that.link
             })
           } else {
             this.createLink()
@@ -63,27 +65,27 @@ export default {
         createLink() {
           if(this.text && this.link) {
             let a = `<a href="${this.link}" >${this.text}</a>`
-            this.$store.dispatch('execCommand', false, {
+            this.$store.dispatch('execCommand', {
               name: 'insertHTML',
               value: a
             })
           }
         },
         getRange() {
-          let select = document.getSelection()
-          if(select && select.rangeCount != 0) {
-            return select.getRangeAt(0)
+          let selection = document.getSelection()
+          if(selection && selection.rangeCount != 0) {
+            return selection.getRangeAt(0)
           }
         },
-        getRangeText(range) {
-            if(this.rangeValid(range)) {
-              return range.toString()
+        getRangeText() {
+            if(this.rangeValid(this.range)) {
+              return this.range.toString()
             }
         },
         rangeValid(range) {
           let testRange = range || this.range
           if(testRange) {
-            return testRange.collapsed
+            return !testRange.collapsed
           }
         }
     }
