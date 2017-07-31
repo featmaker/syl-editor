@@ -58,19 +58,12 @@ export default {
     updateMenu(menu) {
         let state = {};
         if(this.menus[menu].action) {
-            if(this.menus[menu].call) {
-                this.$store.dispatch('callMethod',{
-                    name: menu,
-                    params: null
-                })
-            } else {
-                this.$store.dispatch('execCommand', {
-                    name: this.menus[menu].action,
-                    value: null
-                })
-                if(this.stated[menu].status) {
-                    state[menu] = this.stated[menu].status == 'active' ? 'default' : 'active'
-                }
+            this.$store.dispatch('execCommand', {
+                name: this.menus[menu].action,
+                value: null
+            })
+            if(this.stated[menu].status) {
+                state[menu] = this.stated[menu].status == 'active' ? 'default' : 'active'
             }
         }
         this.$store.dispatch('updateMenuStatus', state)
@@ -80,6 +73,10 @@ export default {
 </script>
 
 <style lang='scss' scoped>
+    .syl-editor-menubar {
+        border: 1px solid #666;
+        border-bottom: none
+    }
   .menubar-item {
     display: flex;
     height: 40px;

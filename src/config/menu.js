@@ -3,7 +3,7 @@ let menu = {
         className: 'syl-menu-source',
         icon: 'fa fa-code',
         action: 'viewSource',
-        call: 'html'
+        showStatus: true
     },
     fontName: {
         className: 'syl-menu-fontName',

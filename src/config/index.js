@@ -39,7 +39,7 @@ let config = {
     container: {
         height: 300,
         width: 500,
-        content: '<br>'
+        content: '<p><br></p>'
     }
 }
 export default {

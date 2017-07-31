@@ -22,5 +22,8 @@ export default {
     },
     callMethod({ commit }, data) {
         commit('CALL_METHOD', data)
+    },
+    changeView({ commit }, data) {
+        commit('CHANGE_VIEW', data)
     }
 }

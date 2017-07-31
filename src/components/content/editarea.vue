@@ -1,7 +1,6 @@
 <template>
-  <div class="syl-editor-editarea">
-    <div class="edit-area" id="syl-editor-body" contenteditable="true">
-      <p v-html="content"></p>
+  <div class="syl-editor-editarea" v-show="!sourceView">
+    <div class="edit-area gg" id="syl-editor-body" contenteditable="true" v-html="content">
     </div>
   </div>
 </template>
@@ -20,11 +19,13 @@ export default {
     computed: mapState({
       menus: 'menuBar',
       content: 'content',
-      command: 'command'
+      command: 'command',
+      sourceView: 'sourceView'
     }),
     watch: {
       'content': function(val) {
-        if(this.editorBody.innerHTML == val) {
+        console.log(val)
+        if(this.editorBody.innerHTML != val) {
           this.editorBody.innerHTML = val
           this.updateMenuState()
         }
@@ -36,6 +37,11 @@ export default {
       //   if(!val) {
       //     this.$store.dispatch('showDropList')
       //   }
+      // }
+      // 'sourceView': function(val) {
+      //     if(!val) {
+      //       this.editorBody.innerHTML = this.
+      //     }
       // }
     },
     methods: {
@@ -57,6 +63,9 @@ export default {
           }
         })
         document.addEventListener('selectionchange', function() {
+          if(that.sourceView) {
+            return
+          }
           clearTimeout(timer)
           let timer = setTimeout(function () {
             that.updateMenuState()
@@ -104,7 +113,7 @@ export default {
         if(this.currentRange) {
           if(this[name]) {
             this[name](value)
-            // this.restoreRange()
+            this.restoreRange()
             return
           }
           document.execCommand(name, false, value)
@@ -122,9 +131,9 @@ export default {
        if(selection.rangeCount == 0) {
          return
        }
-       let _range = selection.getRangeAt(0)
-       let ancestor = _range.commonAncestorContainer
-       let parNode = ancestor.nodeType === 1 ? ancestor : ancestor.parentNode
+       let _range = selection.getRangeAt(0),
+        ancestor = _range.commonAncestorContainer,
+        parNode = ancestor.nodeType === 1 ? ancestor : ancestor.parentNode
        if(!parNode) return
        if(this.isContain(this.editorBody, ancestor)) {
          this.currentRange = _range
@@ -164,7 +173,6 @@ export default {
         }
         this.currentRange.insertNode(frag)
         this.currentRange.setStartAfter(node)
-        // this.restoreRange()
       },
       getRange() {
         let selection = document.getSelection()
@@ -194,6 +202,23 @@ export default {
         } else {
           this.exec('UnLink', null)
         }
+      },
+      viewSource() {
+        let oldView = this.sourceView
+        this.$store.dispatch('changeView', !this.sourceView)
+        if(!oldView) {
+          this.$store.dispatch('updateContent', this.editorBody.innerHTML)
+          this.$store.dispatch('updateMenuStatus', {
+            all: 'disable'
+          })
+          this.$store.dispatch('updateMenuStatus', {
+            source: 'active'
+          })
+        } else {
+          this.$store.dispatch('updateMenuStatus', {
+            all: 'default'
+          })
+        }
       }
     },
     mounted() {
@@ -206,11 +231,12 @@ export default {
   .syl-editor-editarea {
     height: 458px;
     min-height: 458px;
-    border-top: 1px solid #eee;
+    border: 1px solid #666;
     text-align: left;
     padding: 10px 15px;
+    overflow-y: auto;
     .edit-area {
-      height: 100%;
+      height: 95%;
       outline: none;
       &:active {
         outline: none;

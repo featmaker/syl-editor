@@ -28,7 +28,7 @@ export default new Vuex.Store({
     state: {
         content: config.container.content,
         menuBar,
-        fullScreen: false,
+        sourceView: false,
         command: {
             name: '',
             value: ''
@@ -38,10 +38,6 @@ export default new Vuex.Store({
             right: 0,
             bottom: 0,
             left: 0,
-        },
-        calee: {
-            name: '',
-            params: ''
         }
     },
     actions,

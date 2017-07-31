@@ -6,7 +6,7 @@ import {
     EXEC_COMMAND,
     SET_FULLSCREEN,
     NODE_POSITION,
-    CALL_METHOD
+    CHANGE_VIEW
 } from './mutations-types'
 
 export default {
@@ -25,7 +25,13 @@ export default {
         state.content = data
     },
     [UPDATE_MENU_STATUS]({ menuBar }, data) {
-        for (name in data) {
+        if ('all' in data) {
+            for (let menu in menuBar) {
+                menuBar[menu].status = data.all
+            }
+            return
+        }
+        for (let name in data) {
             if (menuBar[name].showStatus) {
                 menuBar[name].status = data[name]
             } else {
@@ -39,8 +45,8 @@ export default {
     [EXEC_COMMAND](state, data) {
         state.command = data
     },
-    [CALL_METHOD](state, data) {
-        state.callee = data
+    [CHANGE_VIEW](state, data) {
+        state.sourceView = data
     },
     [NODE_POSITION](state, data) {
         state.position = {

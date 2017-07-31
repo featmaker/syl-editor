@@ -7,6 +7,7 @@
           <component :is="'syl-' + item"></component>
         </div>
     </div>
+    <SourceCode></SourceCode>
   </div>
 
 </template>
@@ -20,6 +21,7 @@ import FontSize from './menu/fontSize'
 import Picture from './menu/picture'
 import Table from './menu/table'
 import Link from './menu/link'
+import SourceCode from './menu/source'
 
 
 export default {
@@ -38,7 +40,8 @@ export default {
     'syl-fontsize': FontSize,
     'syl-picture': Picture,
     'syl-table': Table,
-    'syl-link': Link
+    'syl-link': Link,
+    SourceCode
   }
 }
 </script>
@@ -87,17 +90,16 @@ table {
 }
 
 img {
-    width: 100%;
-    height: auto;
+    max-width: 100%;
+    max-height: auto;
 }
 
 
 .syl-editor {
     // position: relative;
-    width: 1000px;
-    height: 500px;
+    max-width: 1000px;
+    // height: 500px;
     margin: 0 auto;
-    border: 1px solid #eee;
 }
 
 .drop-list-item {
