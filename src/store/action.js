@@ -14,9 +14,9 @@ export default {
     execCommand({ commit }, data) {
         commit('EXEC_COMMAND', data)
     },
-    setFullScreen({ commit }, data) {
-        commit('SET_FULLSCREEN', data)
-    },
+    // setFullScreen({ commit }, data) {
+    //     commit('SET_FULLSCREEN', data)
+    // },
     getNodePosition({ commit }, data) {
         commit('NODE_POSITION', data)
     },

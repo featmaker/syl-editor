@@ -135,23 +135,23 @@ export default {
         ancestor = _range.commonAncestorContainer,
         parNode = ancestor.nodeType === 1 ? ancestor : ancestor.parentNode
        if(!parNode) return
-       if(this.isContain(this.editorBody, ancestor)) {
+       if(this.editorBody.contains(ancestor)) {
          this.currentRange = _range
          this.rangeFocus = true
        } else {
          this.rangeFocus = false
        }
       },
-      isContain(parNode, child) {
-          let parentNode = child.parentNode
-          while(parentNode) {
-            if(parNode === parentNode) {
-              return true
-            }
-            parentNode = parentNode.parentNode
-          }
-          return false
-      },
+      // isContain(parNode, child) {
+      //     let parentNode = child.parentNode
+      //     while(parentNode) {
+      //       if(parNode === parentNode) {
+      //         return true
+      //       }
+      //       parentNode = parentNode.parentNode
+      //     }
+      //     return false
+      // },
       restoreRange() {
         if(!this.currentRange) return
         let selection = document.getSelection()

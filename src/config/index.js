@@ -11,14 +11,14 @@ let config = {
         'justifyCenter',
         'justifyRight',
         'insertOrderedList',
-        'insertUnorderedList',
-        'link',
-        'unlink',
-        'picture',
-        'table',
-        'removeFormat',
-        'redo',
-        'undo'
+        'insertUnorderedList'
+        // 'link',
+        // 'unlink',
+        // 'picture',
+        // 'table',
+        // 'removeFormat',
+        // 'redo',
+        // 'undo'
     ],
     fontName: [
         'arial black', 'times new roman', 'Courier New'
@@ -37,8 +37,8 @@ let config = {
         '#630000', '#7B3900', '#846300', '#295218', '#083139', '#003163', '#21104A', '#4A1031'
     ],
     container: {
-        height: 300,
-        width: 500,
+        // height: 300,
+        // width: 500,
         content: '<p><br></p>'
     }
 }
