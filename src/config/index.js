@@ -11,17 +11,17 @@ let config = {
         'justifyCenter',
         'justifyRight',
         'insertOrderedList',
-        'insertUnorderedList'
-        // 'link',
-        // 'unlink',
-        // 'picture',
-        // 'table',
-        // 'removeFormat',
-        // 'redo',
-        // 'undo'
+        'insertUnorderedList',
+        'link',
+        'unlink',
+        'picture',
+        'table',
+        'removeFormat',
+        'redo',
+        'undo'
     ],
     fontName: [
-        'arial black', 'times new roman', 'Courier New'
+        '微软雅黑', '宋体', 'arial black', 'times new roman', 'Courier New'
     ],
     fontSize: [
         'h1', 'h2', 'h3', 'h4', 'h5', 'h6'
@@ -37,8 +37,8 @@ let config = {
         '#630000', '#7B3900', '#846300', '#295218', '#083139', '#003163', '#21104A', '#4A1031'
     ],
     container: {
-        // height: 300,
-        // width: 500,
+        height: 300,
+        width: 500,
         content: '<p><br></p>'
     }
 }
