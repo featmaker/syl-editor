@@ -73,10 +73,10 @@ export default {
 </script>
 
 <style lang='scss' scoped>
-    .syl-editor-menubar {
-        border: 1px solid #666;
-        border-bottom: none
-    }
+  .syl-editor-menubar {
+      border: 1px solid #666;
+      border-bottom: none
+  }
   .menubar-item {
     display: flex;
     height: 40px;
