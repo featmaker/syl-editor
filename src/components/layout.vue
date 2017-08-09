@@ -28,7 +28,6 @@ export default {
   name: 'layout',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App',
       list: ['fontname','color', 'fontsize', 'picture','table', 'link']
     }
   },

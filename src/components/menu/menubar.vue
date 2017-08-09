@@ -38,9 +38,6 @@ export default {
     }
   },
   methods: {
-    getDropList(menu) {
-        return this.dropList[menu]
-    },
     handleEvent($event, menu) {
         if(this.stated[menu].status == 'disable') { return }
         this.showDropList($event, menu)

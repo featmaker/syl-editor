@@ -13,9 +13,7 @@ export default {
     return {}
   },
   methods: {
-    gg() {
-      this.$store.dispatch('showDropList',{name:"color", display: true})
-    }
+
   },
   components: {
     Layout
