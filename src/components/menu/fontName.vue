@@ -1,9 +1,8 @@
 <template>
   <div class="drop-list-item font-names-list" v-show="stated.showDropList" :style="style">
       <ul class="font-list">
-        <li class="font-name" v-for="font in fonts" :key="font">
+        <li class="font-name" v-for="font in fonts" :key="font" :class="[ (stated.value == font) ? 'active' : '']">
             <a href="javascript:;"
-              :class="[ value == font ? 'active' : '']"
               @click="handleSelect($event, font)"
               >
               <span>{{ font }}</span>
@@ -20,8 +19,7 @@ export default {
     data() {
       let fonts = Config.getConfig('fontName')
       return {
-        fonts,
-        value: this.$store.state.menuBar.fontName.value
+        fonts
       }
     },
     watch: {
@@ -77,7 +75,7 @@ export default {
   }
   .font-name {
     padding: 5px;
-    &:hover {
+    &.active, &:hover {
       background: #eee;
     }
   }

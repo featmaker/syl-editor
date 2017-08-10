@@ -3,7 +3,7 @@
         <ul class="font-size-list">
           <li class="font-size" v-for="size in fontSize" :key="size">
               <a href="javascript:;"
-                :class="[ value == size ? 'active' : '', 'font-size-' + size]"
+                :class="[ stated.value == size ? 'active' : '', 'font-size-' + size]"
                 @click="handleSelect($event, size)"
                 >
                 <span>{{ size }}</span>
@@ -20,8 +20,7 @@ export default {
     data() {
         let fontSize = Config.getConfig('fontSize')
         return {
-            fontSize,
-            value: this.$store.state.menuBar.fontSize.value
+            fontSize
         }
     },
     watch: {
