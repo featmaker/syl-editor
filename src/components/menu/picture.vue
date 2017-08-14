@@ -24,11 +24,11 @@
 export default {
     data() {
         return {
+            // 模式
             mode: 0,
+            // 默认值
             value: this.$store.state.menuBar.picture.value
         }
-    },
-    watch: {
     },
     computed: {
         stated: function() {
@@ -44,6 +44,7 @@ export default {
     },
     methods: {
         handlePicture() {
+            // 本地图片
             if(this.mode == 0) {
                 //local
                 let imgfile = this.$refs.localimg.files
@@ -59,8 +60,13 @@ export default {
                     value: `<img src="${src}" />`
                 })
                 this.$store.dispatch('showDropList')
+                // window.URL.revokeObjectURL(src)
             } else {
-                //url
+                if (!this.value) {
+                    alert('请输入图片的链接地址')
+                    return
+                }
+                // 在线图片 url
                 this.$store.dispatch('execCommand', {
                     name: 'insertHTML',
                     value: `<img src="${this.value}" />`
@@ -71,6 +77,7 @@ export default {
         }
     }
 }
+
 </script>
 
 <style lang="scss">
