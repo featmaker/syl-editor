@@ -5,7 +5,7 @@
 ### 1.1 实验内容
 在前面几个实验中，我们了解了编辑器的基本结构，以及部分组件的开发。在这一节实验中，我们暂时不讲代码的编写，主要介绍一下富文本编辑器的核心原理：Selection／Range 对象的相关知识。本实验侧重理论知识讲解，较为详细的介绍这两个对象的功能和使用方法。对后续实验的顺利进行至关重要，希望大家能够理解掌握。
 
-### 1.2 实验知识点 【实验中的核心知识点，完成该课程的收获】
+### 1.2 实验知识点
 
 * Selection 对象
 * Range 对象
@@ -112,10 +112,61 @@ Selection 是页面上高亮选区的引用，类似于 `document.body` 是 `<bo
 
 ## 三、Range 对象介绍
 
-Rang 对象表示页面上一段连续的区域，通过Range对象可以获取或者修改页面上任何区域的内容。range 与 selection 的关系如下图所示：
+Rang 对象表示页面上一段连续的区域，通过Range对象可以获取或者修改页面上任何区域的内容，每一段高亮选取都对应着一个 range 对象。range 与 selection 的关系如下图所示：
 
 ![此处输入图片的描述](https://dn-anything-about-doc.qbox.me/document-uid108299labid3431timestamp1502793198218.png/wm)
 
+上图仅是示意图，展示了 Selection 和 Range 的关系，在 firefox 浏览器中，一个 selection 对象可能存在多个range对象，其他浏览器一般是一对一的关系。
 
+创建一个 Range 对象的方法一般有两种：
+
+```js
+var range1 = document.createRange()		//创建一个折叠状态的空 Range
+var range2 = Selection.getRangeAt(0)	//从指定的 Selection 对象中获取 Range
+```
+
+Range 对象的范围概念与 Selection 对象基本相同，只是二者的属性名有所区别。接下来讲解一下 Range 对象的一些属性：
+
+* [`Range.collapsed`](https://developer.mozilla.org/zh-CN/docs/Web/API/Range/collapsed) 
+
+  返回一个用于判断 `Range `起始位置和终止位置是否相同的布尔值。与 Selection 对象的 isCollapsed 属性相似。
+
+* [`Range.commonAncestorContainer`](https://developer.mozilla.org/zh-CN/docs/Web/API/Range/commonAncestorContainer)
+
+  一个range 可以包含多个节点内容，这个属性的作用是获取多个节点最近的共同的祖先节点。
+
+  ![此处输入图片的描述](https://dn-anything-about-doc.qbox.me/document-uid108299labid3431timestamp1502852116365.png/wm)
+
+* [`Range.startContainer`](https://developer.mozilla.org/zh-CN/docs/Web/API/Range/startContainer)
+
+  返回包含 Range 开始位置的节点。
+
+* [`Range.endContainer`](https://developer.mozilla.org/zh-CN/docs/Web/API/Range/endContainer)
+
+  返回包含 Range 终点位置的节点。
+
+以上属性为只读属性。还有一些方法可以对 Range 对象更加细致的操作。
+
+* [`Range.setStart()`](https://developer.mozilla.org/zh-CN/docs/Web/API/Range/setStart)／[`Range.setEnd()`](https://developer.mozilla.org/zh-CN/docs/Web/API/Range/setEnd)
+
+  设置 Range 对象的起点和终点位置
+
+* [`Range.setStartBefore()`](https://developer.mozilla.org/zh-CN/docs/Web/API/Range/setStartBefore)
+
+  以其它节点 （ [`Node`](https://developer.mozilla.org/zh-CN/docs/Web/API/Node)）为基准，设置 `Range `的起点。
+
+* [`Range.setEndBefore()`](https://developer.mozilla.org/zh-CN/docs/Web/API/Range/setEndBefore)
+
+  以其它节点为基准，设置 `Range `的终点。
+
+* [`Range.collapse()`](https://developer.mozilla.org/zh-CN/docs/Web/API/Range/collapse)
+
+  向指定端点折叠该 `Range` 。接受一个布尔值参数，为 `true` 折叠到 [`Range`](https://developer.mozilla.org/zh-CN/docs/Web/API/Range) 的 start 节点，`false` 折叠到 end 节点。如果省略，则默认为 false。
+
+Range 和 Selection 的概念比较类似，但是两者之间存在包含关系，即后者包含了前者。可以简答理解为 Range 是 Selection 的内在，一个 Range 对象只有添加到某一个 Selection 中时，才能在页面上看到效果。
 
 ## 四、实验总结
+
+本次实验主要介绍 Selection 与 Range 的相关理论知识，理解了 Selection（选区） 对象是什么，以及如何操作它。简单的说，选区就是我们用鼠标在页面上拖动选择一段文字所形成的区域。这个区域在一个页面上是唯一存在的，一个选区同时也意味着至少存在一个区域范围对象 Range。这个对象对用户来说是不可见的，只能通过代码来获取。 Range 对象不存在数量限制，可以随意创建，但是只有将它添加到 selection 中时，页面上才能看到 Range 的选中效果，与 Selection 相比，Range 对象具有更强大的范围修改能力。
+
+本节的理论知识是整个编辑器实现的核心原理。基本所有的富文本编辑器都会使用这两个对象。所以理解这两个概念对后面的实验学习很重要。关于这两个对象的更多方法和属性，大家可以去查阅 MDN 的相关资料。如果在本节学习中有任何疑惑或问题，欢迎在课程评论中指出。
