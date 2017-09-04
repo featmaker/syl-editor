@@ -9,7 +9,6 @@
 </template>
 
 <script>
-
 export default {
     data() {
         return {
@@ -42,15 +41,6 @@ export default {
         }
       },
       createTable(rows, cols) {
-        // let table = `<table>`
-        //   for(let i = 0; i < this.rows; i++) {
-        //     table += `<tr>`
-        //     for(let j = 0; j < this.cols; j++) {
-        //       table += '<td></td>'
-        //     }
-        //     table += '</tr>'
-        //   }
-        //   table += '</table>'
         let table = document.createElement('table')
         let tbody = document.createElement('tbody')
         for(let i = 0; i < rows; i++) {
@@ -67,6 +57,7 @@ export default {
     }
 }
 </script>
+
 
 <style lang="scss">
     .table-size {

@@ -1,6 +1,6 @@
 <template>
   <div class="syl-editor-editarea" v-show="!sourceView">
-    <div class="edit-area gg" id="syl-editor-body" contenteditable="true" v-html="content">
+    <div class="edit-area" id="syl-editor-body" contenteditable="true">
     </div>
   </div>
 </template>
@@ -11,8 +11,8 @@ export default {
     data() {
       return {
         editorBody: '',
-        editorMenuBar: '',
         currentRange: null,
+        isInit: false,
         rangeFocus: false
       }
     },
@@ -24,7 +24,10 @@ export default {
     }),
     watch: {
       'content': function(val) {
-        console.log(val)
+        if (!val.trim()) {
+          this.initEditBody()
+          return
+        }
         if(this.editorBody.innerHTML != val) {
           this.editorBody.innerHTML = val
           this.updateMenuState()
@@ -32,25 +35,15 @@ export default {
       },
       'command': function(cmd) {
         this.exec(cmd.name, cmd.value)
-      },
-      // 'rangeFocus': function(val) {
-      //   if(!val) {
-      //     this.$store.dispatch('showDropList')
-      //   }
-      // }
-      // 'sourceView': function(val) {
-      //     if(!val) {
-      //       this.editorBody.innerHTML = this.
-      //     }
-      // }
+      }
     },
     methods: {
       init() {
         this.editorBody = document.getElementById('syl-editor-body')
-        this.editorMenuBar = document.getElementById('syl-editor-menubar')
         this.addListener()
         this.initEditBody()
-        this.editorBody.focus()
+        this.editareaFocus()
+        this.isInit = true
       },
       addListener() {
         let that = this
@@ -75,10 +68,17 @@ export default {
       },
       initEditBody() {
         if(this.checkBodyEmpty()) {
-          let firstChild = this.editorBody.firstChild
-          if(firstChild.nodeName !== 'P') {
+          if (!this.isInit) {
+            this.editorBody.innerHTML = this.content
+          } else {
             this.editorBody.innerHTML = '<p><br></p>'
           }
+        }
+      },
+      editareaFocus() {
+        let that = this
+        this.editorBody.onfocus = function () {
+          that.$store.dispatch('showDropList');
         }
       },
       updateMenuState() {
@@ -95,13 +95,7 @@ export default {
           this.$store.dispatch('updateMenuStatus', data)
       },
       checkBodyEmpty() {
-        let children = this.editorBody.children
-        if(children.length <= 1) {
-          let child = children[0]
-          if(!children[0].textContent) {
-            return true
-          }
-        }
+        return this.editorBody.textContent == ''
       },
       exec(name, value) {
         if (document.queryCommandSupported('styleWithCSS')) {

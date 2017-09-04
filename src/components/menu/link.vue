@@ -25,7 +25,6 @@ export default {
         if(val) {
           this.range = this.getRange()
           let text = this.getRangeText()
-          console.log(text)
           if(text) {
             this.text = text
           }
