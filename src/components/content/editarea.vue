@@ -42,7 +42,8 @@ export default {
         this.editorBody = document.getElementById('syl-editor-body')
         this.addListener()
         this.initEditBody()
-        this.editareaFocus()
+        this.initMenus()
+        this.editorBody.focus();
         this.isInit = true
       },
       addListener() {
@@ -75,7 +76,7 @@ export default {
           }
         }
       },
-      editareaFocus() {
+      initMenus() {
         let that = this
         this.editorBody.onfocus = function () {
           that.$store.dispatch('showDropList');
@@ -136,16 +137,6 @@ export default {
          this.rangeFocus = false
        }
       },
-      // isContain(parNode, child) {
-      //     let parentNode = child.parentNode
-      //     while(parentNode) {
-      //       if(parNode === parentNode) {
-      //         return true
-      //       }
-      //       parentNode = parentNode.parentNode
-      //     }
-      //     return false
-      // },
       restoreRange() {
         if(!this.currentRange) return
         let selection = document.getSelection()
